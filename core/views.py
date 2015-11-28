@@ -22,6 +22,7 @@ class BarCreateView(CreateView):
 class BarListView(ListView):
     model = Bar
     template_name = "bar/bar_list.html"
+    paginate_by = 5
 
 class BarDetailView(DetailView):
     model = Bar
