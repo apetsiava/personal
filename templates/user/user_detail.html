@@ -5,8 +5,11 @@
 <p>First name: {{ user_in_view.first_name }}</p>
 <p>Last name: {{ user_in_view.last_name }}</
 {% if user_in_view == user %}
+<p></p>
 <p><a href="{% url 'user_update' slug=user.username %}">
-Edit profile</a></p>
+Edit profile</a></p
+<p><a href="{% url 'user_delete' slug=user.username %}">
+Delete account</a></p>
 {% endif %}
 <h3>Bars ({{ bars.count }})</h3>
 {% for bar in bars %}
