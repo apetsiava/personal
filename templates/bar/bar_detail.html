@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ bar.title }}</h1>
+<p>{{ bar.description }}</p>
+<p>Posted by {{ bar.user.username }} on {{ bar.created_at }}</p>
+{% endblock %}
