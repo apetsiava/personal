@@ -1,7 +1,8 @@
-from django.shortcuts import render
-from django.views.generic import TemplateView, CreateView, ListView, DetailView, UpdateView, DeleteView
+from django.shortcuts import render, redirect
+from django.views.generic import TemplateView, CreateView, ListView, DetailView, UpdateView, DeleteView, FormView
 from django.core.urlresolvers import reverse_lazy
 from .models import *
+from .forms import *
 from django.core.exceptions import PermissionDenied
 
 # Create your views here.
@@ -96,3 +97,17 @@ class CommentDeleteView(DeleteView):
         if object.user != self.request.user:
             raise PermissionDenied()
         return object
+
+class VoteFormView(FormView):
+    form_class = VoteForm
+
+    def form_valid(self, form):
+        user = self.request.user
+        bar = Bar.objects.get(pk=form.data["bar"])
+        prev_votes = Vote.objects.filter(user=user, bar=bar)
+        has_voted = (prev_votes.count()>0)
+        if not has_voted:
+            Vote.objects.create(user=user, bar=bar)
+        else:
+            prev_votes[0].delete()
+        return redirect('bar_list')

@@ -14,4 +14,5 @@ urlpatterns = patterns('',
     url(r'^bar/(?P<pk>\d+)/comment/create/$', login_required(CommentCreateView.as_view()), name='comment_create'),
     url(r'^bar/(?P<bar_pk>\d+)/comment/update/(?P<comment_pk>\d+)/$', login_required(CommentUpdateView.as_view()), name='comment_update'),
     url(r'^bar/(?P<bar_pk>\d+)/comment/delete/(?P<comment_pk>\d+)/$', login_required(CommentDeleteView.as_view()), name='comment_delete'),
+    url(r'^vote/$', login_required(VoteFormView.as_view()), name='vote'),
 )

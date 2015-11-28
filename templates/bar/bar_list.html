@@ -4,6 +4,13 @@
 <div class="panel">
     <h3><a href="{{ bar.get_absolute_url }}">{{ bar.title }}</a></h3>
     <p>Posted by {{ bar.user.username }} on {{ bar.created_at }}</p>
+    <p>{{ bar.vote_set.all.count }} Vote{{ bar.vote_set.all.count|pluralize }}</p>
+<form method="post" action="{% url 'vote' %}">
+    {% csrf_token %}
+    <input type="hidden" name="bar" value="{{ bar.id }}" />
+    <input type="hidden" name="user" value="{{ user.id }}" />
+    <button>+</button>
+</form>
 </div>
 {% endfor %}
 {% endblock %}
