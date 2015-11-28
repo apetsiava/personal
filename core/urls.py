@@ -11,4 +11,5 @@ urlpatterns = patterns('',
     url(r'^bar/update/(?P<pk>\d+)/$', BarUpdateView.as_view(), name='bar_update'),
     url(r'^bar/delete/(?P<pk>\d+)/$', BarDeleteView.as_view(), name='bar_delete'),
     url(r'^bar/(?P<pk>\d+)/comment/create/$', CommentCreateView.as_view(), name='comment_create'),
+    url(r'^bar/(?P<bar_pk>\d+)/comment/update/(?P<comment_pk>\d+)/$', CommentUpdateView.as_view(), name='comment_update'),
 )
