@@ -25,6 +25,13 @@ class BarDetailView(DetailView):
     model = Bar
     template_name = 'bar/bar_detail.html'
 
+    def get_context_data(self, **kwargs):
+       context = super(BarDetailView, self).get_context_data(**kwargs)
+       bar = Bar.objects.get(id=self.kwargs['pk'])
+       comments = Comment.objects.filter(bar=bar)
+       context['comments'] = comments
+       return context
+
 class BarUpdateView(UpdateView):
     model = Bar
     template_name = 'bar/bar_form.html'
