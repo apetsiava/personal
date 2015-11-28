@@ -3,4 +3,7 @@
 <h1>{{ bar.title }}</h1>
 <p>{{ bar.description }}</p>
 <p>Posted by {{ bar.user.username }} on {{ bar.created_at }}</p>
+{% if bar.user == user %}
+<p><a href="{% url 'bar_update' pk=bar.id %}">Edit bar review</a></p>
+{% endif %}
 {% endblock %}
