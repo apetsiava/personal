@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView, CreateView, ListView, DetailView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
 from .models import *
+from django.core.exceptions import PermissionDenied
 
 # Create your views here.
 class Home(TemplateView):
@@ -37,10 +38,22 @@ class BarUpdateView(UpdateView):
     template_name = 'bar/bar_form.html'
     fields = ['title', 'description']
 
+    def get_object(self, *args, **kwargs):
+        object = super(BarUpdateView, self).get_object(*args, **kwargs)
+        if object.user != self.request.user:
+            raise PermissionDenied()
+        return object
+
 class BarDeleteView(DeleteView):
     model = Bar
     template_name = 'bar/bar_confirm_delete.html'
     success_url = reverse_lazy('bar_list')
+
+    def get_object(self, *args, **kwargs):
+        object = super(BarDeleteView, self).get_object(*args, **kwargs)
+        if object.user != self.request.user:
+            raise PermissionDenied()
+        return object
 
 class CommentCreateView(CreateView):
     model = Comment
@@ -64,6 +77,12 @@ class CommentUpdateView(UpdateView):
     def get_success_url(self):
         return self.object.bar.get_absolute_url()
 
+    def get_object(self, *args, **kwargs):
+        object = super(CommentUpdateView, self).get_object(*args, **kwargs)
+        if object.user != self.request.user:
+            raise PermissionDenied()
+        return object
+
 class CommentDeleteView(DeleteView):
     model = Comment
     pk_url_kwarg = 'comment_pk'
@@ -71,3 +90,9 @@ class CommentDeleteView(DeleteView):
 
     def get_success_url(self):
         return self.object.bar.get_absolute_url()
+
+    def get_object(self, *args, **kwargs):
+        object = super(CommentDeleteView, self).get_object(*args, **kwargs)
+        if object.user != self.request.user:
+            raise PermissionDenied()
+        return object
