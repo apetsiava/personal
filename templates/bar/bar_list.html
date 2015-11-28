@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+{% for bar in object_list %}
+<div class="panel">
+    <h3>{{ bar.title }}</h3>
+    <p>Posted by {{ bar.user.username }} on {{ bar.created_at }}</p>
+</div>
+{% endfor %}
+{% endblock %}
