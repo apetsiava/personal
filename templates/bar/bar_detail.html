@@ -17,13 +17,22 @@
 <p><a href="{% url 'comment_update' bar_pk=bar.id comment_pk=comment.id %}">Edit comment</a></p
 <p><a href="{% url 'comment_delete' bar_pk=bar.id comment_pk=comment.id %}">Delete comment</a></p>
 {% endif %}
-   <p>Posted by {% if comment.visibility == 0 %} by <a href="{% url 'user_detail' slug=comment.user.username %}">{{ comment.user.username }}</a> {% endif %} on {{ comment.created_at }} ({{ comment.vote_set.all.count }} Vote{{ comment.vote_set.all.count|pluralize }})</p>
+   <p>Posted by {% if comment.visibility == 0 %} by <a href="{% url 'user_detail' slug=comment.user.username %}">{{ comment.user.username }}</a> {% endif %} on {{ comment.created_at }}</p>
 <form method="post" action="{% url 'vote' %}">
+    <span class="badge">{{ comment.vote_set.all.count }} Vote{{  comment.vote_set.all.count|pluralize }}</span>
     {% csrf_token %}
     <input type="hidden" name="comment" value="{{ comment.id }}" />
     <input type="hidden" name="bar" value="{{ bar.id }}" />
     <input type="hidden" name="user" value="{{ user.id }}" />
-    <button>+</button>
+    {% if answer in user_votes %}
+        <button class="btn btn-link">
+          <span class="glyphicon glyphicon-thumbs-down"></span>
+        </button>
+    {% else %}
+        <button class="btn btn-link">
+          <span class="glyphicon glyphicon-thumbs-up"></span>
+        </button>
+    {% endif %}
 </form>
 </div>
 {% endfor %}

@@ -5,13 +5,22 @@
     <h3><a href="{{ bar.get_absolute_url }}">{{ bar.title }}</a></h3>
     <p>Posted by {% if bar.visibility == 0 %} by <a href="{% url 'user_detail' slug=bar.user.username %}">{{ bar.user.username }}</a> {% endif %} on {{ bar.created_at }}</p>
 
-    <p>{{ bar.vote_set.all.count }} Vote{{ bar.vote_set.all.count|pluralize }}</p>
 <form method="post" action="{% url 'vote' %}">
+    <span class="badge">{{ bar.comment_set.all.count }} Comment{{  bar.comment_set.all.count|pluralize }}</span>
+    <span class="badge">{{ bar.vote_set.all.count }} Vote{{ bar.vote_set.all.count|pluralize }}</span>
     {% csrf_token %}
     <input type="hidden" name="bar" value="{{ bar.id }}" />
     <input type="hidden" name="user" value="{{ user.id }}" />
-    <button>+</button>
-</form>
+        {% if bar in user_votes %}
+        <button class="btn btn-link">
+          <span class="glyphicon glyphicon-thumbs-down"></span>
+        </button>
+        {% else %}
+        <button class="btn btn-link">
+          <span class="glyphicon glyphicon-thumbs-up"></span>
+        </button>
+        {% endif %}
+    </form>
 </div>
 {% empty %}
 <p>No results found.</p>
