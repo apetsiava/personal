@@ -14,3 +14,12 @@ class Bar(models.Model):
 
   def get_absolute_url(self):
     return reverse("bar_detail", args=[self.id])
+
+class Comment(models.Model):
+    bar = models.ForeignKey(Bar)
+    user = models.ForeignKey(User)
+    created_at = models.DateTimeField(auto_now_add=True)
+    text = models.TextField()
+
+    def __unicode__(self):
+        return self.text

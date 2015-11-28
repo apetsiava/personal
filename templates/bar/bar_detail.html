@@ -7,4 +7,5 @@
 <p><a href="{% url 'bar_update' pk=bar.id %}">Edit bar review</a></p>
 <p><a href="{% url 'bar_delete' pk=bar.id %}">Delete bar review</a></p>
 {% endif %}
+<p><a href="{% url 'comment_create' pk=bar.id %}">Write comment</a></p>
 {% endblock %}
