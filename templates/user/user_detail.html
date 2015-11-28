@@ -3,7 +3,11 @@
 <h1>{{ user_in_view.username }}</h1>
 <p>Email address: {{ user_in_view.email }}</p>
 <p>First name: {{ user_in_view.first_name }}</p>
-<p>Last name: {{ user_in_view.last_name }}</p
+<p>Last name: {{ user_in_view.last_name }}</
+{% if user_in_view == user %}
+<p><a href="{% url 'user_update' slug=user.username %}">
+Edit profile</a></p>
+{% endif %}
 <h3>Bars ({{ bars.count }})</h3>
 {% for bar in bars %}
     <p><a href="{{ bar.get_absolute_url }}">{{ bar.title }}</a></p>
