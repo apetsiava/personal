@@ -3,5 +3,14 @@
 <h1>{{ user_in_view.username }}</h1>
 <p>Email address: {{ user_in_view.email }}</p>
 <p>First name: {{ user_in_view.first_name }}</p>
-<p>Last name: {{ user_in_view.last_name }}</p>
+<p>Last name: {{ user_in_view.last_name }}</p
+<h3>Bars ({{ bars.count }})</h3>
+{% for bar in bars %}
+    <p><a href="{{ bar.get_absolute_url }}">{{ bar.title }}</a></p>
+{% endfor %}
+<h3>Comments ({{ comments.count }})</h3>
+{% for comment in comments %}
+    <p><a href="{{ comment.bar.get_absolute_url }}">{{ comment.bar.title  }}</a></p>
+    <p>> {{ answer.text }}</p>
+{% endfor %}
 {% endblock %}
