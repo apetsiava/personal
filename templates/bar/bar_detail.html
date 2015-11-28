@@ -2,7 +2,7 @@
 {% block content %}
 <h1>{{ bar.title }}</h1>
 <p>{{ bar.description }}</p>
-<p>Posted by <a href="{% url 'user_detail' slug=bar.user.username %}">{{ bar.user.username }}</a> on {{ bar.created_at }}</p>
+<p>Posted by {% if bar.visibility == 0 %} by <a href="{% url 'user_detail' slug=bar.user.username %}">{{ bar.user.username }}</a> {% endif %} on {{ bar.created_at }}</p>
 {% if bar.user == user %}
 <p><a href="{% url 'bar_update' pk=bar.id %}">Edit bar review</a></p>
 <p><a href="{% url 'bar_delete' pk=bar.id %}">Delete bar review</a></p>
@@ -17,7 +17,7 @@
 <p><a href="{% url 'comment_update' bar_pk=bar.id comment_pk=comment.id %}">Edit comment</a></p
 <p><a href="{% url 'comment_delete' bar_pk=bar.id comment_pk=comment.id %}">Delete comment</a></p>
 {% endif %}
-   <p>Posted by <a href="{% url 'user_detail' slug=comment.user.username %}">{{ comment.user.username }}</a> on {{ comment.created_at }} ({{ comment.vote_set.all.count }} Vote{{ comment.vote_set.all.count|pluralize }})</p>
+   <p>Posted by {% if comment.visibility == 0 %} by <a href="{% url 'user_detail' slug=comment.user.username %}">{{ comment.user.username }}</a> {% endif %} on {{ comment.created_at }} ({{ comment.vote_set.all.count }} Vote{{ comment.vote_set.all.count|pluralize }})</p>
 <form method="post" action="{% url 'vote' %}">
     {% csrf_token %}
     <input type="hidden" name="comment" value="{{ comment.id }}" />
