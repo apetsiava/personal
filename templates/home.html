@@ -2,12 +2,13 @@
 {% block content %}
 {% if user.is_authenticated %}
 <div class="jumbotron">
-    <h1>Welcome back!</h1>
+    <h1>Welcome to InHamden!</h1>
+    <p>An entertainment guide for Quinnipiac students.</p>
 </div>
 {% else %}
 <div class="jumbotron">
-    <h1>Welcome to OnBudget</h1>
-    <p>The ultimate guide for QU students</p>
+    <h1>Welcome to InHamden</h1>
+    <p>An entertainment guide for Quinnipiac students.</p>
     <p><a class="btn btn-lg btn-primary" href="{% url 'registration_register'   %}">Sign up</a></p>
 </div>
 {% endif %}
