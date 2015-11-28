@@ -9,4 +9,5 @@ urlpatterns = patterns('',
     url(r'bar/$', BarListView.as_view(), name='bar_list'),
     url(r'^bar/(?P<pk>\d+)/$', BarDetailView.as_view(), name='bar_detail'),
     url(r'^bar/update/(?P<pk>\d+)/$', BarUpdateView.as_view(), name='bar_update'),
+    url(r'^bar/delete/(?P<pk>\d+)/$', BarDeleteView.as_view(), name='bar_delete'),
 )
